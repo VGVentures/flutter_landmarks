@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:landmarks_flutter/models/data.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  loadData().then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -25,9 +30,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
+    print(landmarkData);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -35,8 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-          ],
+          children: <Widget>[],
         ),
       ),
     );
