@@ -16,11 +16,11 @@ class LandmarkDetail extends StatelessWidget {
             top: 0.0,
             left: 0.0,
             right: 0.0,
-            height: 0.0 + 300.0,
+            height: 450.0,
             child: _mapView(),
           ),
           Positioned(
-            top: 170.0,
+            top: 320.0,
             left: 20.0,
             right: 20.0,
             child: Column(
@@ -31,13 +31,30 @@ class LandmarkDetail extends StatelessWidget {
                   children: <Widget>[
                     Flexible(
                       child: Text(
-                        'Chilkoot Trailfkadsl;dksafkjld;sajkfld;ajsklf;d',
+                        landmark.name,
                         style: TextStyle().copyWith(
                             fontWeight: FontWeight.w400, fontSize: 28.0),
                       ),
                     ),
                     Padding(padding: EdgeInsets.only(top: 12.0)),
                     Icon(Icons.star),
+                  ],
+                ),
+                Padding(padding: const EdgeInsets.only(top: 12.0)),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      landmark.park,
+                      style: TextStyle().copyWith(
+                          fontWeight: FontWeight.w500, fontSize: 14.0),
+                    ),
+                    Expanded(child: Container()),
+                    Text(
+                      landmark.state,
+                      style: TextStyle().copyWith(
+                          fontWeight: FontWeight.w500, fontSize: 14.0),
+                    ),
                   ],
                 ),
               ],
