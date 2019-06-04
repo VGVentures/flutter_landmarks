@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:landmarks_flutter/landmark_detail.dart';
 import 'package:landmarks_flutter/views/landmark_cell.dart';
 import 'package:landmarks_flutter/models/data.dart';
 
@@ -33,20 +34,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _showFavoritesOnly = false;
-  List<SliverToBoxAdapter> _landmarkWidgets;
-
-  @override
-  void initState() {
-    super.initState();
-    _landmarkWidgets =
-        List<SliverToBoxAdapter>.generate(landmarkData.length, (index) {
-      return SliverToBoxAdapter(
-        child: LandmarkCell(
-          landmark: landmarkData[index],
-        ),
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +73,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            SliverToBoxAdapter(
-              child: Divider(indent: 15.0),
+            SliverToBoxAdapter(child: const Divider(indent: 15.0)),
+          ]..addAll(
+              List<Widget>.generate(
+                landmarkData.length,
+                (index) {
+                  return SliverToBoxAdapter(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          CupertinoPageRoute(
+                            builder: (context) => LandmarkDetail(
+                              landmark: landmarkData[index],
+                            ),
+                          ),
+                        );
+                      },
+                      child: LandmarkCell(
+                        landmark: landmarkData[index],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-          ]..addAll(_landmarkWidgets),
         ),
       ),
     );
