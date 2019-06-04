@@ -33,62 +33,62 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _showFavoritesOnly = false;
-  List<LandmarkCell> _landmarkWidgets;
+  List<SliverToBoxAdapter> _landmarkWidgets;
 
   @override
   void initState() {
     super.initState();
     _landmarkWidgets =
-        List<LandmarkCell>.generate(landmarkData.length, (index) {
-      return LandmarkCell(
-        landmark: landmarkData[index],
+        List<SliverToBoxAdapter>.generate(landmarkData.length, (index) {
+      return SliverToBoxAdapter(
+        child: LandmarkCell(
+          landmark: landmarkData[index],
+        ),
       );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(landmarkData);
     return Material(
       child: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(widget.title),
-        ),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Text('Landmarks',
-                  style: TextStyle().copyWith(
-                    fontSize: 32.0,
-                    fontWeight: FontWeight.bold,
-                  )),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: Text(widget.title),
+              backgroundColor: Colors.white,
             ),
-            Divider(indent: 15.0),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    'Show Favorites Only',
-                    style: TextStyle().copyWith(
-                      fontSize: 16.0,
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 5.0),
+            ),
+            SliverToBoxAdapter(
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: Text(
+                      'Show Favorites Only',
+                      style: TextStyle().copyWith(
+                        fontSize: 16.0,
+                      ),
                     ),
                   ),
-                ),
-                Spacer(),
-                CupertinoSwitch(
-                  value: _showFavoritesOnly,
-                  onChanged: (state) {
-                    setState(() {
-                      _showFavoritesOnly = state;
-                    });
-                  },
-                ),
-              ],
+                  Spacer(),
+                  CupertinoSwitch(
+                    value: _showFavoritesOnly,
+                    onChanged: (state) {
+                      setState(() {
+                        _showFavoritesOnly = state;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
-            Divider(indent: 15.0),
+            SliverToBoxAdapter(
+              child: Divider(indent: 15.0),
+            ),
           ]..addAll(_landmarkWidgets),
         ),
       ),
