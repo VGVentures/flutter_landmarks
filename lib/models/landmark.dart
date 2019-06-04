@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 enum Category {
   featured,
   lakes,
@@ -5,7 +7,7 @@ enum Category {
   mountains,
 }
 
-class Landmark {
+class Landmark extends ChangeNotifier {
   final int id;
   final String name;
   final String imageName;
@@ -25,6 +27,11 @@ class Landmark {
     this.category,
     this.isFavorite,
   });
+
+  void setFavorite(bool value) {
+    isFavorite = value;
+    notifyListeners();
+  }
 
   factory Landmark.fromJSON(Map map) {
     return Landmark(

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:landmarks_flutter/views/star_button.dart';
 
 import 'models/landmark.dart';
 
@@ -43,7 +44,20 @@ class LandmarkDetail extends StatelessWidget {
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(top: 12.0)),
-                      Icon(Icons.star),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: AnimatedBuilder(
+                          animation: landmark,
+                          builder: (context, widget) {
+                            return StarButton(
+                              isFavorite: landmark.isFavorite,
+                              onTap: (value) {
+                                landmark.setFavorite(value);
+                              },
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                   Padding(padding: const EdgeInsets.only(top: 12.0)),

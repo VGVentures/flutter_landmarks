@@ -85,8 +85,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           context,
                           CupertinoPageRoute(
                             builder: (context) => LandmarkDetail(
-                              landmark: landmarkData[index],
-                            ),
+                                  landmark: landmarkData[index],
+                                ),
                           ),
                         );
                       },

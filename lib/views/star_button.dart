@@ -12,7 +12,11 @@ class StarButton extends StatelessWidget {
       child: isFavorite
           ? Icon(Icons.star, color: const Color(0xFFFFD700))
           : Icon(Icons.star_border),
-      onTap: () => onTap(!isFavorite),
+      onTap: () {
+        if (onTap != null) {
+          onTap(!isFavorite);
+        }
+      },
     );
   }
 }
