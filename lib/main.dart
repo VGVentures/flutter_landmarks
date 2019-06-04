@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:landmarks_flutter/landmark_detail.dart';
 import 'package:landmarks_flutter/models/data.dart';
 
 void main() {
@@ -34,14 +35,19 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     print(landmarkData);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[],
-        ),
+      body: ListView.builder(
+        itemCount: landmarkData.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(landmarkData[index].name),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LandmarkDetail(landmark: landmarkData[index],)),
+              );
+            },
+          );
+        },
       ),
     );
   }
