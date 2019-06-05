@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:landmarks_flutter/landmark_detail.dart';
+import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/landmark_cell.dart';
 import 'package:landmarks_flutter/models/data.dart';
 
@@ -33,42 +34,24 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   bool _showFavoritesOnly = false;
-  List<LandmarkCell> _landmarkWidgets;
-
-  @override
-  void initState() {
-    super.initState();
-    _landmarkWidgets =
-        List<LandmarkCell>.generate(landmarkData.length, (index) {
-      return LandmarkCell(
-        landmark: landmarkData[index],
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    print(landmarkData);
     return Material(
       child: CupertinoPageScaffold(
-        navigationBar: CupertinoNavigationBar(
-          middle: Text(widget.title),
-        ),
-        child: GestureDetector(
-          onTap: () {},
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Text('Landmarks',
-                    style: TextStyle().copyWith(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold,
-                    )),
-              ),
-              Divider(indent: 15.0),
-              Row(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: Text(widget.title),
+              backgroundColor: Colors.white,
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 5.0),
+            ),
+            SliverToBoxAdapter(
+              child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Padding(
@@ -91,21 +74,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              Divider(indent: 15.0),
-            ]..addAll(List<Widget>.generate(landmarkData.length, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LandmarkDetail(landmark: landmarkData[index],)),
-                    );
-                  },
-                  child: LandmarkCell(
-                    landmark: landmarkData[index],
-                  ),
-                );
-              })),
-          ),
+            ),
+            SliverToBoxAdapter(child: const Divider(indent: 15.0)),
+          ]..addAll(
+              List<Widget>.generate(
+                landmarkData.length,
+                (index) {
+                  final landmark = landmarkData[index];
+                  final showCell = (!_showFavoritesOnly ||
+                      (_showFavoritesOnly && landmark.isFavorite));
+                  return SliverToBoxAdapter(
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 100),
+                      height: showCell ? null : 0.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => LandmarkDetail(
+                                    landmark: landmark,
+                                  ),
+                            ),
+                          );
+                        },
+                        child: LandmarkCell(
+                          landmark: landmark,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
         ),
       ),
     );

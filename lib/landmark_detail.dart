@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:landmarks_flutter/views/star_button.dart';
 
 import 'models/landmark.dart';
 
@@ -9,58 +11,77 @@ class LandmarkDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-            top: 0.0,
-            left: 0.0,
-            right: 0.0,
-            height: 450.0,
-            child: _mapView(),
-          ),
-          Positioned(
-            top: 320.0,
-            left: 20.0,
-            right: 20.0,
-            child: Column(
-              children: <Widget>[
-                _imageView(),
-                Padding(padding: const EdgeInsets.only(top: 20.0)),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text(
-                        landmark.name,
-                        style: TextStyle().copyWith(
-                            fontWeight: FontWeight.w400, fontSize: 28.0),
-                      ),
-                    ),
-                    Padding(padding: EdgeInsets.only(top: 12.0)),
-                    Icon(Icons.star),
-                  ],
-                ),
-                Padding(padding: const EdgeInsets.only(top: 12.0)),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      landmark.park,
-                      style: TextStyle().copyWith(
-                          fontWeight: FontWeight.w500, fontSize: 14.0),
-                    ),
-                    Expanded(child: Container()),
-                    Text(
-                      landmark.state,
-                      style: TextStyle().copyWith(
-                          fontWeight: FontWeight.w500, fontSize: 14.0),
-                    ),
-                  ],
-                ),
-              ],
+    return Material(
+      child: CupertinoPageScaffold(
+        navigationBar: const CupertinoNavigationBar(
+          previousPageTitle: 'Landmarks',
+          backgroundColor: Colors.transparent,
+        ),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 0.0,
+              left: 0.0,
+              right: 0.0,
+              height: 450.0,
+              child: _mapView(),
             ),
-          ),
-        ],
+            Positioned(
+              top: 320.0,
+              left: 20.0,
+              right: 20.0,
+              child: Column(
+                children: <Widget>[
+                  _imageView(),
+                  Padding(padding: const EdgeInsets.only(top: 20.0)),
+                  Row(
+                    children: <Widget>[
+                      Flexible(
+                        child: Text(
+                          landmark.name,
+                          style: TextStyle().copyWith(
+                              fontWeight: FontWeight.w400, fontSize: 28.0),
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 12.0)),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 5.0),
+                        child: AnimatedBuilder(
+                          animation: landmark,
+                          builder: (context, widget) {
+                            return StarButton(
+                              isFavorite: landmark.isFavorite,
+                              onTap: (value) {
+                                landmark.setFavorite(value);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Padding(padding: const EdgeInsets.only(top: 12.0)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        landmark.park,
+                        style: TextStyle().copyWith(
+                            fontWeight: FontWeight.w500, fontSize: 14.0),
+                      ),
+                      Expanded(child: Container()),
+                      Text(
+                        landmark.state,
+                        style: TextStyle().copyWith(
+                            fontWeight: FontWeight.w500, fontSize: 14.0),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
