@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
-
-import 'models/landmark.dart';
 
 class LandmarkDetail extends StatelessWidget {
   final Landmark landmark;
@@ -19,7 +18,10 @@ class LandmarkDetail extends StatelessWidget {
       child: CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           previousPageTitle: 'Landmarks',
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color(0x00FFFFFF),
+          border: Border(
+            bottom: BorderSide.none,
+          ),
         ),
         child: Stack(
           children: <Widget>[
@@ -119,16 +121,17 @@ class LandmarkDetail extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0x22000000),
+                  color: const Color(0x22000000),
                   blurRadius: 10.0,
                   spreadRadius: 10.0,
                 ),
               ],
-              borderRadius: BorderRadius.all(Radius.circular(125.0))),
+              borderRadius:
+                  const BorderRadius.all(const Radius.circular(125.0))),
           width: 250.0,
           height: 250.0,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(120.0)),
+            borderRadius: const BorderRadius.all(const Radius.circular(120.0)),
             child: Image.asset('assets/${landmark.imageName}.jpg'),
           ),
         ),

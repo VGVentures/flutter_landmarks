@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:landmarks_flutter/common/constants.dart';
 import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
 
@@ -39,7 +40,7 @@ class LandmarkCell extends StatelessWidget {
               ],
             ),
           ),
-          Divider(indent: 15.0),
+          const Divider(indent: Constants.defaultHorizontalPadding),
         ],
       ),
     );

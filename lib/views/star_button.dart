@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class StarButton extends StatelessWidget {
-  StarButton({this.isFavorite = false, this.onTap});
+  StarButton({Key key, this.isFavorite = false, this.onTap}) : super(key: key);
 
   final bool isFavorite;
   final ValueChanged onTap;
@@ -10,8 +10,8 @@ class StarButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: isFavorite
-          ? Icon(Icons.star, color: const Color(0xFFFFD700))
-          : Icon(Icons.star_border),
+          ? const Icon(Icons.star, color: const Color(0xFFFFD700))
+          : const Icon(Icons.star_border, color: Colors.grey),
       onTap: () {
         if (onTap != null) {
           onTap(!isFavorite);
