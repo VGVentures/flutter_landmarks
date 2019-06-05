@@ -6,7 +6,10 @@ import 'package:landmarks_flutter/views/star_button.dart';
 class LandmarkCell extends StatelessWidget {
   final Landmark landmark;
 
-  const LandmarkCell({Key key, @required this.landmark}) : super(key: key);
+  const LandmarkCell({
+    Key key,
+    @required this.landmark,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +28,7 @@ class LandmarkCell extends StatelessWidget {
                 AnimatedBuilder(
                   animation: landmark,
                   builder: (context, widget) {
-                    return landmark.isFavorite
-                        ? StarButton(
-                            isFavorite: landmark.isFavorite,
-                          )
-                        : Container();
+                    return landmark.isFavorite ? StarButton(isFavorite: landmark.isFavorite) : Container();
                   },
                 ),
                 Icon(
