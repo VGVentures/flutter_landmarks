@@ -32,6 +32,7 @@ class Landmark extends ChangeNotifier {
     isFavorite = value;
     notifyListeners();
   }
+
   @override
   bool operator ==(o) => o is Landmark && o.id == id;
 
