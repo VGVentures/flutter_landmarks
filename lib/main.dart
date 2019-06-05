@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:landmarks_flutter/landmark_detail.dart';
+import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/landmark_cell.dart';
 import 'package:landmarks_flutter/models/data.dart';
 
@@ -33,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   bool _showFavoritesOnly = false;
 
   @override
@@ -78,20 +80,27 @@ class _MyHomePageState extends State<MyHomePage> {
               List<Widget>.generate(
                 landmarkData.length,
                 (index) {
+                  final landmark = landmarkData[index];
+                  final showCell = (!_showFavoritesOnly ||
+                      (_showFavoritesOnly && landmark.isFavorite));
                   return SliverToBoxAdapter(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => LandmarkDetail(
-                                  landmark: landmarkData[index],
-                                ),
-                          ),
-                        );
-                      },
-                      child: LandmarkCell(
-                        landmark: landmarkData[index],
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 100),
+                      height: showCell ? null : 0.0,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                              builder: (context) => LandmarkDetail(
+                                    landmark: landmark,
+                                  ),
+                            ),
+                          );
+                        },
+                        child: LandmarkCell(
+                          landmark: landmark,
+                        ),
                       ),
                     ),
                   );
