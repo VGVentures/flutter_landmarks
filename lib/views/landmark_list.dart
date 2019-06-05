@@ -18,10 +18,10 @@ class LandmarkList extends StatefulWidget {
 }
 
 class _LandmarkListState extends State<LandmarkList> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  final _animatedListKey = GlobalKey<AnimatedListState>();
   List<Landmark> _landmarks;
 
-  AnimatedListState get _animatedList => _listKey.currentState;
+  AnimatedListState get _animatedList => _animatedListKey.currentState;
 
   @override
   void initState() {
@@ -62,7 +62,7 @@ class _LandmarkListState extends State<LandmarkList> {
   @override
   Widget build(BuildContext context) {
     return AnimatedList(
-      key: _listKey,
+      key: _animatedListKey,
       shrinkWrap: true,
       initialItemCount: widget.landmarks.length,
       itemBuilder: (BuildContext context, int index, Animation<double> animation) {
@@ -79,7 +79,7 @@ class _LandmarkListState extends State<LandmarkList> {
     return SizeTransition(
       axis: Axis.vertical,
       sizeFactor: animation,
-      child: LandmarkCell(landmark: landmark)
+      child: LandmarkCell(key: ValueKey(landmark.id), landmark: landmark)
     );
   }
 }
