@@ -51,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SliverToBoxAdapter(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.only(left: Constants.defaultHorizontalPadding),
@@ -61,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(right: Constants.defaultHorizontalPadding),
                     child: CupertinoSwitch(
