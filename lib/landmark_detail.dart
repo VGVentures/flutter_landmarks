@@ -1,13 +1,17 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
 
 import 'models/landmark.dart';
 
 class LandmarkDetail extends StatelessWidget {
   final Landmark landmark;
+  final Completer<GoogleMapController> _controller = Completer();
 
-  const LandmarkDetail({Key key, @required this.landmark}) : super(key: key);
+  LandmarkDetail({Key key, @required this.landmark}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,11 +91,17 @@ class LandmarkDetail extends StatelessWidget {
   }
 
   Widget _mapView() {
-    return Container(
-      color: Color(0xFFC3ECB2),
-      child: Center(
-        child: Text('Map'),
+    return GoogleMap(
+      mapType: MapType.normal,
+      initialCameraPosition: CameraPosition(
+        target: LatLng(
+            landmark.coordinates.latitude, landmark.coordinates.longitude),
+        zoom: 13.70,
       ),
+      myLocationButtonEnabled: false,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
     );
   }
 
