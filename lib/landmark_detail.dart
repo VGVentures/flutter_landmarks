@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
 
 import 'models/landmark.dart';
@@ -15,7 +16,7 @@ class LandmarkDetail extends StatelessWidget {
       child: CupertinoPageScaffold(
         navigationBar: const CupertinoNavigationBar(
           previousPageTitle: 'Landmarks',
-          backgroundColor: Colors.transparent,
+          backgroundColor: const Color(0x00FFFFFF),
         ),
         child: Stack(
           children: <Widget>[
