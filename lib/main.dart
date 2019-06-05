@@ -40,57 +40,61 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Material(
       child: CupertinoPageScaffold(
-        child: CustomScrollView(slivers: <Widget>[
-          CupertinoSliverNavigationBar(
-            largeTitle: Text(widget.title),
-            backgroundColor: Colors.white,
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 8.0),
-          ),
-          SliverToBoxAdapter(
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: Constants.defaultHorizontalPadding),
-                  child: Text(
-                    'Show Favorites Only',
-                    style: TextStyle().copyWith(
-                      fontSize: 17.0,
+        child: SafeArea(
+          child: CustomScrollView(slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: Text(widget.title),
+              backgroundColor: Colors.white,
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 8.0),
+            ),
+            SliverToBoxAdapter(
+              child: Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(left: Constants.defaultHorizontalPadding),
+                    child: Text(
+                      'Show Favorites Only',
+                      style: TextStyle().copyWith(
+                        fontSize: 17.0,
+                      ),
                     ),
                   ),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(right: Constants.defaultHorizontalPadding),
-                  child: CupertinoSwitch(
-                    value: _showFavoritesOnly,
-                    onChanged: (state) {
-                      setState(() {
-                        _showFavoritesOnly = state;
-                      });
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: LandmarkList(
-              landmarks: _showFavoritesOnly ? favoriteLandmarks : allLandmarks,
-              onSelected: (landmark) {
-                Navigator.push(context,
-                  CupertinoPageRoute(
-                    builder: (context) => LandmarkDetail(
-                      landmark: landmark,
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: Constants.defaultHorizontalPadding),
+                    child: CupertinoSwitch(
+                      value: _showFavoritesOnly,
+                      onChanged: (state) {
+                        setState(() {
+                          _showFavoritesOnly = state;
+                        });
+                      },
                     ),
                   ),
-                );
-              },
+                ],
+              ),
             ),
-          ),
-          SliverPadding(padding: const EdgeInsets.only(top: 30.0)),
-        ]),
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 8.0),
+            ),
+            SliverToBoxAdapter(
+              child: LandmarkList(
+                landmarks: _showFavoritesOnly ? favoriteLandmarks : allLandmarks,
+                onSelected: (landmark) {
+                  Navigator.push(context,
+                    CupertinoPageRoute(
+                      builder: (context) => LandmarkDetail(
+                        landmark: landmark,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }
