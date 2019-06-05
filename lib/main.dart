@@ -47,7 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Colors.white,
             ),
             SliverPadding(
-              padding: const EdgeInsets.only(top: 5.0),
+              padding: const EdgeInsets.only(top: 8.0),
             ),
             SliverToBoxAdapter(
               child: Row(
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Text(
                       'Show Favorites Only',
                       style: TextStyle().copyWith(
-                        fontSize: 16.0,
+                        fontSize: 17.0,
                       ),
                     ),
                   ),
