@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:landmarks_flutter/common/constants.dart';
 import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
@@ -32,7 +33,7 @@ class LandmarkCell extends StatelessWidget {
                   },
                 ),
                 Icon(
-                  Icons.arrow_forward_ios,
+                  Icons.chevron_right,
                   size: 15.0,
                   color: const Color(0xFFD3D3D3),
                 ),
