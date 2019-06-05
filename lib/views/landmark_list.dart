@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/landmark_cell.dart';
@@ -31,6 +32,11 @@ class _LandmarkListState extends State<LandmarkList> {
   @override
   void didUpdateWidget(LandmarkList oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    // If landmarks are identical, do nothing
+    if (const ListEquality().equals(oldWidget.landmarks, widget.landmarks)) {
+      return;
+    }
 
     // Remove any landmark rows no longer present in the new list
     for (final landmark in List.from(_landmarks)) {
