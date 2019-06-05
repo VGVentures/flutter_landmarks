@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:landmarks_flutter/common/constants.dart';
-import 'package:landmarks_flutter/screens/landmark_detail.dart';
-import 'package:landmarks_flutter/views/landmark_cell.dart';
 import 'package:landmarks_flutter/models/data.dart';
+import 'package:landmarks_flutter/screens/landmark_detail.dart';
+import 'package:landmarks_flutter/views/landmark_list.dart';
 
 void main() {
   loadData().then((_) {
@@ -40,81 +40,58 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Material(
       child: CupertinoPageScaffold(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              largeTitle: Text(widget.title),
-              backgroundColor: Colors.white,
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
-            SliverToBoxAdapter(
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: Constants.defaultHorizontalPadding),
-                    child: Text(
-                      'Show Favorites Only',
-                      style: TextStyle().copyWith(
-                        fontSize: 17.0,
-                      ),
+        child: CustomScrollView(slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            largeTitle: Text(widget.title),
+            backgroundColor: Colors.white,
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 8.0),
+          ),
+          SliverToBoxAdapter(
+            child: Row(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: Constants.defaultHorizontalPadding),
+                  child: Text(
+                    'Show Favorites Only',
+                    style: TextStyle().copyWith(
+                      fontSize: 17.0,
                     ),
                   ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        right: Constants.defaultHorizontalPadding),
-                    child: CupertinoSwitch(
-                      value: _showFavoritesOnly,
-                      onChanged: (state) {
-                        setState(() {
-                          _showFavoritesOnly = state;
-                        });
-                      },
+                ),
+                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.only(right: Constants.defaultHorizontalPadding),
+                  child: CupertinoSwitch(
+                    value: _showFavoritesOnly,
+                    onChanged: (state) {
+                      setState(() {
+                        _showFavoritesOnly = state;
+                      });
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: LandmarkList(
+              landmarks: _showFavoritesOnly ? favoriteLandmarks : allLandmarks,
+              onSelected: (landmark) {
+                Navigator.push(context,
+                  CupertinoPageRoute(
+                    builder: (context) => LandmarkDetail(
+                      landmark: landmark,
                     ),
                   ),
-                ],
-              ),
+                );
+              },
             ),
-            SliverToBoxAdapter(
-                child:
-                    const Divider(indent: Constants.defaultHorizontalPadding)),
-          ]
-            ..addAll(
-              List<Widget>.generate(
-                landmarkData.length,
-                (index) {
-                  final landmark = landmarkData[index];
-                  final showCell = (!_showFavoritesOnly ||
-                      (_showFavoritesOnly && landmark.isFavorite));
-                  return SliverToBoxAdapter(
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 100),
-                      height: showCell ? null : 0.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => LandmarkDetail(
-                                    landmark: landmark,
-                                  ),
-                            ),
-                          );
-                        },
-                        child: LandmarkCell(
-                          landmark: landmark,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            )
-            ..add(SliverPadding(padding: const EdgeInsets.only(top: 30.0))),
-        ),
+          ),
+          SliverToBoxAdapter(child: const Divider(indent: Constants.defaultHorizontalPadding)),
+          SliverPadding(padding: const EdgeInsets.only(top: 30.0)),
+        ]),
       ),
     );
   }
