@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:landmarks_flutter/landmark_detail.dart';
-import 'package:landmarks_flutter/models/landmark.dart';
+import 'package:landmarks_flutter/common/constants.dart';
+import 'package:landmarks_flutter/screens/landmark_detail.dart';
 import 'package:landmarks_flutter/views/landmark_cell.dart';
 import 'package:landmarks_flutter/models/data.dart';
 
@@ -34,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   bool _showFavoritesOnly = false;
 
   @override
@@ -52,10 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SliverToBoxAdapter(
               child: Row(
-                mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.only(left: 15.0),
+                    padding: const EdgeInsets.only(
+                        left: Constants.defaultHorizontalPadding),
                     child: Text(
                       'Show Favorites Only',
                       style: TextStyle().copyWith(
@@ -64,19 +63,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Spacer(),
-                  CupertinoSwitch(
-                    value: _showFavoritesOnly,
-                    onChanged: (state) {
-                      setState(() {
-                        _showFavoritesOnly = state;
-                      });
-                    },
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        right: Constants.defaultHorizontalPadding),
+                    child: CupertinoSwitch(
+                      value: _showFavoritesOnly,
+                      onChanged: (state) {
+                        setState(() {
+                          _showFavoritesOnly = state;
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
-            SliverToBoxAdapter(child: const Divider(indent: 15.0)),
-          ]..addAll(
+            SliverToBoxAdapter(
+                child:
+                    const Divider(indent: Constants.defaultHorizontalPadding)),
+          ]
+            ..addAll(
               List<Widget>.generate(
                 landmarkData.length,
                 (index) {
@@ -106,7 +112,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
               ),
-            ),
+            )
+            ..add(SliverPadding(padding: const EdgeInsets.only(top: 30.0))),
         ),
       ),
     );

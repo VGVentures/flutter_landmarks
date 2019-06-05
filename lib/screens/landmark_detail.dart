@@ -1,14 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
-
-import 'models/landmark.dart';
 
 class LandmarkDetail extends StatelessWidget {
   final Landmark landmark;
+  final Completer<GoogleMapController> _controller = Completer();
 
-  const LandmarkDetail({Key key, @required this.landmark}) : super(key: key);
+  LandmarkDetail({Key key, @required this.landmark}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +19,9 @@ class LandmarkDetail extends StatelessWidget {
         navigationBar: const CupertinoNavigationBar(
           previousPageTitle: 'Landmarks',
           backgroundColor: const Color(0x00FFFFFF),
+          border: Border(
+            bottom: BorderSide.none,
+          ),
         ),
         child: Stack(
           children: <Widget>[
@@ -88,11 +93,17 @@ class LandmarkDetail extends StatelessWidget {
   }
 
   Widget _mapView() {
-    return Container(
-      color: Color(0xFFC3ECB2),
-      child: Center(
-        child: Text('Map'),
+    return GoogleMap(
+      mapType: MapType.normal,
+      initialCameraPosition: CameraPosition(
+        target: LatLng(
+            landmark.coordinates.latitude, landmark.coordinates.longitude),
+        zoom: 13.70,
       ),
+      myLocationButtonEnabled: false,
+      onMapCreated: (GoogleMapController controller) {
+        _controller.complete(controller);
+      },
     );
   }
 
@@ -110,16 +121,17 @@ class LandmarkDetail extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Color(0x22000000),
+                  color: const Color(0x22000000),
                   blurRadius: 10.0,
                   spreadRadius: 10.0,
                 ),
               ],
-              borderRadius: BorderRadius.all(Radius.circular(125.0))),
+              borderRadius:
+                  const BorderRadius.all(const Radius.circular(125.0))),
           width: 250.0,
           height: 250.0,
           child: ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(120.0)),
+            borderRadius: const BorderRadius.all(const Radius.circular(120.0)),
             child: Image.asset('assets/${landmark.imageName}.jpg'),
           ),
         ),
