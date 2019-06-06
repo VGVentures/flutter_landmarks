@@ -41,59 +41,56 @@ class _MyHomePageState extends State<MyHomePage> {
     return Material(
       child: CupertinoPageScaffold(
         child: SafeArea(
-          child: CustomScrollView(slivers: <Widget>[
-            CupertinoSliverNavigationBar(
-              largeTitle: Text(widget.title),
-              backgroundColor: Colors.white,
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
-            SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: Constants.defaultHorizontalPadding),
-                    child: Text(
-                      'Show Favorites Only',
-                      style: TextStyle().copyWith(
-                        fontSize: 17.0,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: Constants.defaultHorizontalPadding),
-                    child: CupertinoSwitch(
-                      value: _showFavoritesOnly,
-                      onChanged: (state) {
-                        setState(() {
-                          _showFavoritesOnly = state;
-                        });
-                      },
-                    ),
-                  ),
-                ],
+          child: CustomScrollView(
+            slivers: <Widget>[
+              CupertinoSliverNavigationBar(
+                largeTitle: Text(widget.title),
+                backgroundColor: Colors.white,
               ),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
-            SliverToBoxAdapter(
-              child: LandmarkList(
-                landmarks: _showFavoritesOnly ? favoriteLandmarks : allLandmarks,
-                onSelected: (landmark) {
-                  Navigator.push(context,
-                    CupertinoPageRoute(
-                      builder: (context) => LandmarkDetail(
-                        landmark: landmark,
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: Constants.defaultHorizontalPadding / 2,
+                    horizontal: Constants.defaultHorizontalPadding,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Show Favorites Only',
+                        style: TextStyle().copyWith(
+                          fontSize: 17.0,
+                        ),
                       ),
-                    ),
-                  );
-                },
+                      CupertinoSwitch(
+                        value: _showFavoritesOnly,
+                        onChanged: (state) {
+                          setState(() {
+                            _showFavoritesOnly = state;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ]),
+              SliverToBoxAdapter(
+                child: LandmarkList(
+                  landmarks: _showFavoritesOnly ? favoriteLandmarks : allLandmarks,
+                  onSelected: (landmark) {
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => LandmarkDetail(
+                          landmark: landmark,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
