@@ -3,20 +3,14 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:landmarks_flutter/models/landmark.dart';
 
-List<Landmark> landmarkData;
+List<Landmark> _landmarkData;
+
+List<Landmark> get allLandmarks => _landmarkData;
+
+List<Landmark> get favoriteLandmarks => _landmarkData.where((l) => l.isFavorite).toList();
 
 Future<Null> loadData() async {
-  landmarkData = await load(
-    'landmarkData.json',
-    (rawData) {
-      return (rawData as List)
-          .map<Landmark>((map) => Landmark.fromJSON(map))
-          .toList();
-    },
-  );
-}
-
-Future<T> load<T>(String filename, T Function(dynamic) builder) async {
-  final fileString = await rootBundle.loadString('assets/$filename');
-  return builder(json.decode(fileString));
+  final string = await rootBundle.loadString('assets/landmarkData.json');
+  final data = json.decode(string);
+  _landmarkData = List.unmodifiable(data.map((map) => Landmark.fromJSON(map)));
 }
