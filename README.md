@@ -1,6 +1,6 @@
 # landmarks_flutter
 
-A new Flutter project.
+A recreation of the [Landmarks sample app](https://developer.apple.com/tutorials/swiftui) that Apple used to educate developers about SwiftUI. This codebase was created as an educational exercise to help us and other developers learn SwiftUI and have a comparison to a similar app built with [Flutter](https://flutter.dev).
 
 ## Getting Started
 
