@@ -16,3 +16,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our 
 [online documentation](https://flutter.dev/docs), which offers tutorials, 
 samples, guidance on mobile development, and a full API reference.
+
+## Using Maps
+
+The maps will need an API key to work, [which you can get here.](https://cloud.google.com/maps-platform/)
+
+After you have acquired one, replace "YOUR KEY HERE" in the main `AndroidManifest.xml` file and similarly in `AppDelegate.m`.
