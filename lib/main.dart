@@ -41,70 +41,67 @@ class _MyHomePageState extends State<MyHomePage> {
     final landmarks = _showFavoritesOnly ? favoriteLandmarks : allLandmarks;
     return Material(
       child: CupertinoPageScaffold(
-        child: SafeArea(
-          bottom: false,
-          child: CustomScrollView(
-            slivers: <Widget>[
-              CupertinoSliverNavigationBar(
-                largeTitle: Text(widget.title),
-                backgroundColor: Colors.white,
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Constants.defaultHorizontalPadding / 4,
-                    horizontal: Constants.defaultHorizontalPadding,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Show Favorites Only',
-                        style: TextStyle().copyWith(
-                          fontSize: 17.0,
-                        ),
-                      ),
-                      CupertinoSwitch(
-                        value: _showFavoritesOnly,
-                        onChanged: (state) {
-                          setState(() {
-                            _showFavoritesOnly = state;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: Text(widget.title),
+              backgroundColor: Colors.white,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Constants.defaultHorizontalPadding / 4,
+                  horizontal: Constants.defaultHorizontalPadding,
                 ),
-              ),
-              SliverToBoxAdapter(
-                child: const Divider(
-                  height: 1,
-                  indent: Constants.defaultHorizontalPadding,
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final landmark = landmarks[index];
-                    return LandmarkCell(
-                      landmark: landmark,
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          CupertinoPageRoute(
-                            builder: (context) => LandmarkDetail(
-                              landmark: landmark,
-                            ),
-                          ),
-                        );
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Show Favorites Only',
+                      style: TextStyle().copyWith(
+                        fontSize: 17.0,
+                      ),
+                    ),
+                    CupertinoSwitch(
+                      value: _showFavoritesOnly,
+                      onChanged: (state) {
+                        setState(() {
+                          _showFavoritesOnly = state;
+                        });
                       },
-                    );
-                  },
-                  childCount: landmarks.length,
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+            SliverToBoxAdapter(
+              child: const Divider(
+                height: 1,
+                indent: Constants.defaultHorizontalPadding,
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final landmark = landmarks[index];
+                  return LandmarkCell(
+                    landmark: landmark,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => LandmarkDetail(
+                                landmark: landmark,
+                              ),
+                        ),
+                      );
+                    },
+                  );
+                },
+                childCount: landmarks.length,
+              ),
+            ),
+          ],
         ),
       ),
     );
