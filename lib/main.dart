@@ -42,6 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Material(
       child: CupertinoPageScaffold(
         child: SafeArea(
+          bottom: false,
           child: CustomScrollView(
             slivers: <Widget>[
               CupertinoSliverNavigationBar(
