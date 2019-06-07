@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               SliverToBoxAdapter(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                    vertical: Constants.defaultHorizontalPadding / 2,
+                    vertical: Constants.defaultHorizontalPadding / 4,
                     horizontal: Constants.defaultHorizontalPadding,
                   ),
                   child: Row(
@@ -82,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   indent: Constants.defaultHorizontalPadding,
                 ),
               ),
+              SliverPadding(padding: const EdgeInsets.only(top: 8.0)),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
