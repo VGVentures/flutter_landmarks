@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:landmarks_flutter/common/constants.dart';
-import 'package:landmarks_flutter/models/data.dart';
-import 'package:landmarks_flutter/screens/landmark_detail.dart';
 import 'package:landmarks_flutter/views/landmark_list.dart';
+import 'package:landmarks_flutter/screens/landmark_detail.dart';
+import 'package:landmarks_flutter/models/data.dart';
 
 void main() {
   loadData().then((_) {
@@ -40,57 +40,61 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Material(
       child: CupertinoPageScaffold(
-        child: SafeArea(
-          child: CustomScrollView(
-            slivers: <Widget>[
-              CupertinoSliverNavigationBar(
-                largeTitle: Text(widget.title),
-                backgroundColor: Colors.white,
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: Constants.defaultHorizontalPadding / 2,
-                    horizontal: Constants.defaultHorizontalPadding,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        'Show Favorites Only',
-                        style: TextStyle().copyWith(
-                          fontSize: 17.0,
-                        ),
+        child: CustomScrollView(
+          slivers: <Widget>[
+            CupertinoSliverNavigationBar(
+              largeTitle: Text(widget.title),
+              backgroundColor: Colors.white,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Constants.defaultHorizontalPadding / 4,
+                  horizontal: Constants.defaultHorizontalPadding,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      'Show Favorites Only',
+                      style: TextStyle().copyWith(
+                        fontSize: 17.0,
                       ),
-                      CupertinoSwitch(
-                        value: _showFavoritesOnly,
-                        onChanged: (state) {
-                          setState(() {
-                            _showFavoritesOnly = state;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
+                    ),
+                    CupertinoSwitch(
+                      value: _showFavoritesOnly,
+                      onChanged: (state) {
+                        setState(() {
+                          _showFavoritesOnly = state;
+                        });
+                      },
+                    ),
+                  ],
                 ),
               ),
-              SliverToBoxAdapter(
-                child: LandmarkList(
-                  landmarks: _showFavoritesOnly ? favoriteLandmarks : allLandmarks,
-                  onSelected: (landmark) {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                        builder: (context) => LandmarkDetail(
-                          landmark: landmark,
-                        ),
-                      ),
-                    );
-                  },
-                ),
+            ),
+            SliverToBoxAdapter(
+              child: const Divider(
+                height: 1,
+                indent: Constants.defaultHorizontalPadding,
               ),
-            ],
-          ),
+            ),
+            SliverToBoxAdapter(
+              child: LandmarkList(
+                landmarks: _showFavoritesOnly ? favoriteLandmarks : allLandmarks,
+                onSelected: (landmark) {
+                  Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      builder: (context) => LandmarkDetail(
+                        landmark: landmark,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -67,19 +67,20 @@ class _LandmarkListState extends State<LandmarkList> {
       initialItemCount: widget.landmarks.length,
       itemBuilder: (BuildContext context, int index, Animation<double> animation) {
         final landmark = widget.landmarks[index];
-        return GestureDetector(
-          onTap: () => widget.onSelected(landmark),
-          child: _buildCell(landmark, animation)
-        );
+        return _buildCell(landmark, animation);
       },
     );
   }
 
   Widget _buildCell(Landmark landmark, Animation<double> animation) {
     return SizeTransition(
+      key: ValueKey(landmark.id),
       axis: Axis.vertical,
       sizeFactor: animation,
-      child: LandmarkCell(key: ValueKey(landmark.id), landmark: landmark)
+      child: LandmarkCell(
+        landmark: landmark,
+        onTap: () => widget.onSelected(landmark),
+      ),
     );
   }
 }

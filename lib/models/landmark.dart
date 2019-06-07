@@ -33,12 +33,6 @@ class Landmark extends ChangeNotifier {
     notifyListeners();
   }
 
-  @override
-  bool operator ==(o) => o is Landmark && o.id == id;
-
-  @override
-  int get hashCode => id.hashCode;
-
   factory Landmark.fromJSON(Map map) {
     return Landmark(
       id: map['id'],
@@ -48,8 +42,7 @@ class Landmark extends ChangeNotifier {
       state: map['state'],
       park: map['park'],
       category: _categoryFromString(map['category']),
-      isFavorite: map['isFavorite'],
-    );
+      isFavorite: map['isFavorite']);
   }
 
   static Category _categoryFromString(String input) {

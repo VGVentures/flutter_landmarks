@@ -10,7 +10,10 @@ class LandmarkDetail extends StatelessWidget {
   final Landmark landmark;
   final Completer<GoogleMapController> _controller = Completer();
 
-  LandmarkDetail({Key key, @required this.landmark}) : super(key: key);
+  LandmarkDetail({
+    Key key,
+    @required this.landmark,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +48,7 @@ class LandmarkDetail extends StatelessWidget {
                       Flexible(
                         child: Text(
                           landmark.name,
-                          style: TextStyle().copyWith(
-                              fontWeight: FontWeight.w400, fontSize: 28.0),
+                          style: TextStyle().copyWith(fontWeight: FontWeight.w400, fontSize: 28.0),
                         ),
                       ),
                       Padding(padding: EdgeInsets.only(top: 12.0)),
@@ -72,14 +74,12 @@ class LandmarkDetail extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         landmark.park,
-                        style: TextStyle().copyWith(
-                            fontWeight: FontWeight.w500, fontSize: 14.0),
+                        style: TextStyle().copyWith(fontWeight: FontWeight.w500, fontSize: 14.0),
                       ),
                       Expanded(child: Container()),
                       Text(
                         landmark.state,
-                        style: TextStyle().copyWith(
-                            fontWeight: FontWeight.w500, fontSize: 14.0),
+                        style: TextStyle().copyWith(fontWeight: FontWeight.w500, fontSize: 14.0),
                       ),
                     ],
                   ),
@@ -96,8 +96,7 @@ class LandmarkDetail extends StatelessWidget {
     return GoogleMap(
       mapType: MapType.normal,
       initialCameraPosition: CameraPosition(
-        target: LatLng(
-            landmark.coordinates.latitude, landmark.coordinates.longitude),
+        target: LatLng(landmark.coordinates.latitude, landmark.coordinates.longitude),
         zoom: 13.70,
       ),
       myLocationButtonEnabled: false,
@@ -114,20 +113,20 @@ class LandmarkDetail extends StatelessWidget {
       child: Center(
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                width: 4.0,
-                color: Colors.transparent,
+            color: Colors.white,
+            border: Border.all(
+              width: 4.0,
+              color: Colors.transparent,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0x22000000),
+                blurRadius: 10.0,
+                spreadRadius: 10.0,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0x22000000),
-                  blurRadius: 10.0,
-                  spreadRadius: 10.0,
-                ),
-              ],
-              borderRadius:
-                  const BorderRadius.all(const Radius.circular(125.0))),
+            ],
+            borderRadius: const BorderRadius.all(const Radius.circular(125.0)),
+          ),
           width: 250.0,
           height: 250.0,
           child: ClipRRect(

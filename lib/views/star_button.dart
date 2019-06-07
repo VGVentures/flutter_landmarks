@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class StarButton extends StatelessWidget {
-  StarButton({Key key, this.isFavorite = false, this.onTap}) : super(key: key);
+  StarButton({
+    Key key,
+    this.isFavorite = false,
+    this.onTap,
+  }) : super(key: key);
 
   final bool isFavorite;
   final ValueChanged onTap;
