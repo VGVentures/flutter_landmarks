@@ -5,10 +5,12 @@ import 'package:landmarks_flutter/views/star_button.dart';
 
 class LandmarkCell extends StatelessWidget {
   final Landmark landmark;
+  final Function() onTap;
 
   const LandmarkCell({
     Key key,
     @required this.landmark,
+    @required this.onTap,
   }) : super(key: key);
 
   @override
@@ -17,6 +19,7 @@ class LandmarkCell extends StatelessWidget {
       child: Column(
         children: <Widget>[
           ListTile(
+            onTap: this.onTap,
             leading: Image.asset(
               'assets/${landmark.imageName}.jpg',
               width: 50.0,

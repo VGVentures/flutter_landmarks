@@ -87,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
                     final landmark = landmarks[index];
-                    return GestureDetector(
+                    return LandmarkCell(
+                      landmark: landmark,
                       onTap: () {
                         Navigator.push(
                           context,
@@ -98,11 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         );
                       },
-                      child: LandmarkCell(
-                        landmark: landmark,
-                      ),
                     );
-                  }, childCount: landmarks.length,
+                  },
+                  childCount: landmarks.length,
                 ),
               ),
             ],
