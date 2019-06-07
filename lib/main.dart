@@ -76,6 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
+              SliverToBoxAdapter(
+                child: const Divider(
+                  height: 1,
+                  indent: Constants.defaultHorizontalPadding,
+                ),
+              ),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
