@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:landmarks_flutter/common/constants.dart';
 import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
+import 'package:listenable_builder/listenable_builder.dart';
 
 class LandmarkCell extends StatelessWidget {
   final Landmark landmark;
@@ -32,8 +33,8 @@ class LandmarkCell extends StatelessWidget {
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                AnimatedBuilder(
-                  animation: landmark,
+                ListenableBuilder(
+                  listenable: landmark,
                   builder: (context, widget) {
                     return landmark.isFavorite ? StarButton(isFavorite: landmark.isFavorite) : Container();
                   },
