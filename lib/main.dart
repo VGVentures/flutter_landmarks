@@ -82,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   indent: Constants.defaultHorizontalPadding,
                 ),
               ),
-              SliverPadding(padding: const EdgeInsets.only(top: 8.0)),
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {

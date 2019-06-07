@@ -15,10 +15,14 @@ class LandmarkCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: <Widget>[
-          ListTile(
+    return Column(
+      children: <Widget>[
+        Material(
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: Constants.defaultHorizontalPadding,
+              vertical: Constants.defaultHorizontalPadding / 6,
+            ),
             onTap: this.onTap,
             leading: Image.asset(
               'assets/${landmark.imageName}.jpg',
@@ -42,9 +46,12 @@ class LandmarkCell extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(indent: Constants.defaultHorizontalPadding),
-        ],
-      ),
+        ),
+        const Divider(
+          height: 1,
+          indent: Constants.defaultHorizontalPadding,
+        ),
+      ],
     );
   }
 }
