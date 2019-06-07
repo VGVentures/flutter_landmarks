@@ -21,7 +21,7 @@ class LandmarkCell extends StatelessWidget {
           child: ListTile(
             contentPadding: EdgeInsets.symmetric(
               horizontal: Constants.defaultHorizontalPadding,
-              vertical: Constants.defaultHorizontalPadding / 6,
+              vertical: 2.0,
             ),
             onTap: this.onTap,
             leading: Image.asset(
