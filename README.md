@@ -21,4 +21,4 @@ samples, guidance on mobile development, and a full API reference.
 
 The maps will need an API key to work, [which you can get here.](https://cloud.google.com/maps-platform/)
 
-After you have acquired one, replace "YOUR KEY HERE" with your API key in the main `AndroidManifest.xml` file and in `AppDelegate.m`.
+After you have acquired one, replace "YOUR KEY HERE" with your API key in the main `AndroidManifest.xml` file and in `AppDelegate.swift`.
