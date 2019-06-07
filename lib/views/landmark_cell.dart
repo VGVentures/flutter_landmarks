@@ -5,15 +5,25 @@ import 'package:landmarks_flutter/views/star_button.dart';
 
 class LandmarkCell extends StatelessWidget {
   final Landmark landmark;
+  final Function() onTap;
 
-  const LandmarkCell({Key key, @required this.landmark}) : super(key: key);
+  const LandmarkCell({
+    Key key,
+    @required this.landmark,
+    @required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Column(
-        children: <Widget>[
-          ListTile(
+    return Column(
+      children: <Widget>[
+        Material(
+          child: ListTile(
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: Constants.defaultHorizontalPadding,
+              vertical: Constants.defaultHorizontalPadding / 6,
+            ),
+            onTap: this.onTap,
             leading: Image.asset(
               'assets/${landmark.imageName}.jpg',
               width: 50.0,
@@ -25,11 +35,7 @@ class LandmarkCell extends StatelessWidget {
                 AnimatedBuilder(
                   animation: landmark,
                   builder: (context, widget) {
-                    return landmark.isFavorite
-                        ? StarButton(
-                            isFavorite: landmark.isFavorite,
-                          )
-                        : Container();
+                    return landmark.isFavorite ? StarButton(isFavorite: landmark.isFavorite) : Container();
                   },
                 ),
                 Icon(
@@ -40,9 +46,12 @@ class LandmarkCell extends StatelessWidget {
               ],
             ),
           ),
-          const Divider(indent: Constants.defaultHorizontalPadding),
-        ],
-      ),
+        ),
+        const Divider(
+          height: 1,
+          indent: Constants.defaultHorizontalPadding,
+        ),
+      ],
     );
   }
 }

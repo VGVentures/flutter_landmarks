@@ -35,15 +35,21 @@ class Landmark extends ChangeNotifier {
 
   factory Landmark.fromJSON(Map map) {
     return Landmark(
-        id: map['id'],
-        name: map['name'],
-        imageName: map['imageName'],
-        coordinates: Coordinates.fromJSON(map['coordinates']),
-        state: map['state'],
-        park: map['park'],
-        category: Category.values.firstWhere((e) =>
-            '${map['category']}'.toLowerCase() == (e.toString().split('.')[1])),
-        isFavorite: map['isFavorite']);
+      id: map['id'],
+      name: map['name'],
+      imageName: map['imageName'],
+      coordinates: Coordinates.fromJSON(map['coordinates']),
+      state: map['state'],
+      park: map['park'],
+      category: _categoryFromString(map['category']),
+      isFavorite: map['isFavorite']);
+  }
+
+  static Category _categoryFromString(String input) {
+    return Category.values.firstWhere((c) {
+      final value = c.toString().split('.')[1];
+      return value == input.toLowerCase();
+    });
   }
 }
 

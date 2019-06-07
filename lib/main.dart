@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final landmarks = _showFavoritesOnly ? favoriteLandmarks : allLandmarks;
     return Material(
       child: CupertinoPageScaffold(
         child: CustomScrollView(
@@ -46,27 +47,22 @@ class _MyHomePageState extends State<MyHomePage> {
               largeTitle: Text(widget.title),
               backgroundColor: Colors.white,
             ),
-            SliverPadding(
-              padding: const EdgeInsets.only(top: 8.0),
-            ),
             SliverToBoxAdapter(
-              child: Row(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: Constants.defaultHorizontalPadding),
-                    child: Text(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Constants.defaultHorizontalPadding / 4,
+                  horizontal: Constants.defaultHorizontalPadding,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
                       'Show Favorites Only',
                       style: TextStyle().copyWith(
                         fontSize: 17.0,
                       ),
                     ),
-                  ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        right: Constants.defaultHorizontalPadding),
-                    child: CupertinoSwitch(
+                    CupertinoSwitch(
                       value: _showFavoritesOnly,
                       onChanged: (state) {
                         setState(() {
@@ -74,46 +70,38 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SliverToBoxAdapter(
-                child:
-                    const Divider(indent: Constants.defaultHorizontalPadding)),
-          ]
-            ..addAll(
-              List<Widget>.generate(
-                landmarkData.length,
-                (index) {
-                  final landmark = landmarkData[index];
-                  final showCell = (!_showFavoritesOnly ||
-                      (_showFavoritesOnly && landmark.isFavorite));
-                  return SliverToBoxAdapter(
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 100),
-                      height: showCell ? null : 0.0,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => LandmarkDetail(
-                                    landmark: landmark,
-                                  ),
-                            ),
-                          );
-                        },
-                        child: LandmarkCell(
-                          landmark: landmark,
+              child: const Divider(
+                height: 1,
+                indent: Constants.defaultHorizontalPadding,
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final landmark = landmarks[index];
+                  return LandmarkCell(
+                    landmark: landmark,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => LandmarkDetail(
+                                landmark: landmark,
+                              ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   );
                 },
+                childCount: landmarks.length,
               ),
-            )
-            ..add(SliverPadding(padding: const EdgeInsets.only(top: 30.0))),
+            ),
+          ],
         ),
       ),
     );
