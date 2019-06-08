@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:landmarks_flutter/models/landmark.dart';
 import 'package:landmarks_flutter/views/star_button.dart';
-import 'package:listenable_builder/listenable_builder.dart';
 
 class LandmarkDetail extends StatelessWidget {
   final Landmark landmark;
@@ -55,8 +54,8 @@ class LandmarkDetail extends StatelessWidget {
                       Padding(padding: EdgeInsets.only(top: 12.0)),
                       Padding(
                         padding: const EdgeInsets.only(left: 5.0),
-                        child: ListenableBuilder(
-                          listenable: landmark,
+                        child: AnimatedBuilder(
+                          animation: landmark,
                           builder: (context, widget) {
                             return StarButton(
                               isFavorite: landmark.isFavorite,
