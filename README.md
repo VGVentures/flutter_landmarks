@@ -4,6 +4,8 @@
 
 A recreation of the [Landmarks sample app](https://developer.apple.com/tutorials/swiftui) used to educate developers about SwiftUI. This codebase was created as an educational exercise to help us and other developers learn SwiftUI and have a comparison to a similar app built with [Flutter](https://flutter.dev).
 
+Read our [blog post](https://medium.com/flutter-nyc/building-the-swiftui-sample-app-in-flutter-67bb4f9c571c) that goes into detail about how we built the Flutter app and what we think about the differences between SwiftUI and Flutter.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
